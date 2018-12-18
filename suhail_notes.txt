@@ -1,0 +1,30 @@
+Select id, panel_id, date(date_time) as datetime, sum(kilo_watt) as sum  from api_onehourelectricity  group by panel_id, date(date_time);
+Test cases to write for Panel
+    brand = models.CharField(max_length=200)
+    serial = models.CharField(max_length=16,
+                              validators=[MaxLengthValidator(16), MinLengthValidator(16)])
+
+  # Fixed length is 16 hence changed the code from maxlength =200 to 16 and minimum length to 16 as well,
+    # wrote a test as well
+    latitude = models.DecimalField(decimal_places=6, max_digits=9,
+                                   validators=[MaxValueValidator(90), MinValueValidator(-90)])
+
+    # Max value 90 and min value is -90 and 6 decimals max digits should be 9 , changing digits from 8 to 9 and adding max and min values
+    # adding the test case as well
+    longitude = models.DecimalField(decimal_places=6, max_digits=10,
+                                    validators=[MaxValueValidator(180), MinValueValidator(-180)])
+
+    # Max value 90 and min value is -90 and 6 decimals max digits should be 9 , changing digits from 8 to 9 and adding max and min values
+    # adding the test case as well
+	
+Test cases 
+	1) Panel uniquely identified i.e. brand and serial combination is unique
+	2) Serial has length of fixed 16 characters i.e. assertion of more than 16 is a failure
+	3) Serial has length of fixed 16 characters i.e. assertion of less than 16 is a failure
+	4) latitude is between between 90 to -90 assertion of failure if more than 90 
+	5) latitude is between between 90 to -90 assertion of failure if less than -90
+	6) latitude decimal values length more than 6 assertion is failure
+	7) longitude is between between 180 to -180 assertion of failure if more than 180 
+	8) longitude is between between 180 to -180 assertion of failure if less than -180
+	9) longitude decimal values length more than 6 assertion is failure
+	10)
