@@ -1,0 +1,82 @@
+
+
+Test cases to write for Panel
+    brand = models.CharField(max_length=200)
+    serial = models.CharField(max_length=16,
+                              validators=[MaxLengthValidator(16), MinLengthValidator(16)])
+
+  # Fixed length is 16 hence changed the code from maxlength =200 to 16 and minimum length to 16 as well,
+    # wrote a test as well
+    latitude = models.DecimalField(decimal_places=6, max_digits=9,
+                                   validators=[MaxValueValidator(90), MinValueValidator(-90)])
+
+    # Max value 90 and min value is -90 and 6 decimals max digits should be 9 , changing digits from 8 to 9 and adding max and min values
+    # adding the test case as wellatomicwrites==1.2.1
+atomicwrites==1.2.1
+attrs==18.2.0
+certifi==2018.11.29
+chardet==3.0.4
+colorama==0.4.1
+coreapi==2.3.3
+coreschema==0.0.4
+coverage==4.5.1
+Django==2.0.7
+djangorestframework==3.8.2
+idna==2.8
+itypes==1.1.0
+Jinja2==2.10
+MarkupSafe==1.1.0
+more-itertools==4.3.0
+openapi-codec==1.3.2
+pytz==2018.5
+requests==2.21.0
+uritemplate==3.0.0
+urllib3==1.24.1
+
+
+    longitude = models.DecimalField(decimal_places=6, max_digits=10,
+                                    validators=[MaxValueValidator(180), MinValueValidator(-180)])
+
+    # Max value 90 and min value is -90 and 6 decimals max digits should be 9 , changing digits from 8 to 9 and adding max and min values
+    # adding the test case as well
+	
+Test cases 
+	1) Panel uniquely identified i.e. brand and serial combination is unique
+	2) Serial has length of fixed 16 characters i.e. assertion of more than 16 is a failure
+	3) Serial has length of fixed 16 characters i.e. assertion of less than 16 is a failure
+	4) latitude is between between 90 to -90 assertion of failure if more than 90 
+	5) latitude is between between 90 to -90 assertion of failure if less than -90
+	6) latitude decimal values length more than 6 assertion is failure
+	7) longitude is between between 180 to -180 assertion of failure if more than 180 
+	8) longitude is between between 180 to -180 assertion of failure if less than -180
+	9) longitude decimal values length more than 6 assertion is failure
+	10)
+	
+ ___________________________________________________________________________________________________________________________	
+|																															|
+|													Coverage																|
+|___________________________________________________________________________________________________________________________|
+
+				*****************************************************
+				*	Coverage for api\serializers.py : 94% 			*
+				*	52 statements   49 run 3 missing 0 excluded		*
+				*****************************************************
+Function  validate_longitude has been covered similar to validate_latitude but coverage shows missing, either some bug in coverage or need to investigate in depth.
+	def validate_longitude(self, value): 
+
+        """validate longitude""" 
+
+        if value > 180 or value < -180: 
+            raise serializers.ValidationError("Ensure the value of longitude is between +180 and -180") 
+
+Function validate_date_time has been covered but coverage shows missing, either some bug in coverage or need to investigate in depth 
+    def validate_date_time(self, value): 
+
+        try: 
+
+            now_datetime = pytz.utc.localize(datetime.utcnow()) 
+
+            if value > now_datetime: 
+
+                raise serializers.ValidationError("Date Time Cannot Be Greater Current Date And Time") 
+
